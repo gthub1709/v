@@ -1,0 +1,1397 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ultra Modern</title>
+    <style>
+        /* Modern CSS Reset */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Variables */
+        :root {
+            --gradient-1: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%);
+            --gradient-2: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+            --gradient-3: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.05);
+            --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            --neon-glow: 0 0 10px rgba(0, 242, 254, 0.5),
+                         0 0 20px rgba(0, 242, 254, 0.3),
+                         0 0 30px rgba(0, 242, 254, 0.1);
+            --cursor-glow: 0 0 20px rgba(0, 242, 254, 0.8),
+                         0 0 40px rgba(0, 242, 254, 0.4),
+                         0 0 60px rgba(0, 242, 254, 0.2);
+            --text-glow: 0 0 10px rgba(255, 255, 255, 0.8),
+                         0 0 20px rgba(255, 255, 255, 0.4),
+                         0 0 30px rgba(255, 255, 255, 0.2);
+        }
+
+        /* Base Styles */
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background: #000;
+            color: #fff;
+            line-height: 1.6;
+            overflow-x: hidden;
+            min-height: 100vh;
+            perspective: 1000px;
+            cursor: none;
+        }
+
+        /* Particle Background */
+        #particles-js {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        /* Glass Effect */
+        .glass {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--glass-shadow);
+            border-radius: 24px;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 1.5rem 0;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .nav.scrolled {
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(20px);
+            padding: 1rem 0;
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: 800;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: var(--neon-glow);
+            letter-spacing: -1px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 3rem;
+        }
+
+        .nav-link {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient-1);
+            transition: width 0.3s ease;
+            box-shadow: var(--neon-glow);
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            padding: 8rem 0;
+            transform-style: preserve-3d;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            z-index: 1;
+            transform: translateZ(50px);
+        }
+
+        .hero-title {
+            font-size: 5rem;
+            line-height: 1.1;
+            margin-bottom: 2rem;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: var(--neon-glow);
+            animation: titleFloat 6s ease-in-out infinite;
+        }
+
+        @keyframes titleFloat {
+            0%, 100% { transform: translateY(0) rotateX(0); }
+            50% { transform: translateY(-20px) rotateX(5deg); }
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 3rem;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+        }
+
+        /* 3D Cards */
+        .card-3d {
+            transform-style: preserve-3d;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+
+        .card-3d::before {
+            content: '';
+            position: absolute;
+            inset: -1px;
+            background: var(--gradient-1);
+            border-radius: inherit;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .card-3d:hover::before {
+            opacity: 0.5;
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            text-decoration: none;
+            display: inline-block;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient-1);
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .btn:hover::after {
+            opacity: 1;
+        }
+
+        .btn-primary {
+            background: var(--gradient-1);
+            color: white;
+            box-shadow: var(--neon-glow);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 20px rgba(0, 242, 254, 0.6);
+        }
+
+        .btn-glass {
+            background: var(--glass-bg);
+            color: white;
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-glass:hover {
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+        }
+
+        /* Features Section */
+        .features {
+            padding: 8rem 0;
+            position: relative;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 3.5rem;
+            margin-bottom: 4rem;
+            background: var(--gradient-2);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: var(--neon-glow);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 3rem;
+        }
+
+        .feature-card {
+            padding: 3rem;
+            text-align: center;
+            transform-style: preserve-3d;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-20px) rotateX(10deg);
+        }
+
+        .feature-icon {
+            font-size: 4rem;
+            margin-bottom: 2rem;
+            display: inline-block;
+            animation: iconFloat 3s ease-in-out infinite;
+            position: relative;
+        }
+
+        .feature-icon::after {
+            content: '';
+            position: absolute;
+            inset: -10px;
+            background: var(--gradient-1);
+            border-radius: 50%;
+            z-index: -1;
+            opacity: 0;
+            transition: all 0.3s ease;
+            filter: blur(10px);
+        }
+
+        .feature-card:hover .feature-icon::after {
+            opacity: 0.3;
+            transform: scale(1.2);
+        }
+
+        @keyframes iconFloat {
+            0%, 100% { transform: translateY(0) rotate(0); }
+            50% { transform: translateY(-15px) rotate(5deg); }
+        }
+
+        /* Contact Form */
+        .contact {
+            padding: 8rem 0;
+            position: relative;
+        }
+
+        .form-group {
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .form-group::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--gradient-1);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .form-group:focus-within::after {
+            transform: scaleX(1);
+        }
+
+        .input {
+            width: 100%;
+            padding: 1rem 1.5rem;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            color: white;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 1;
+        }
+
+        .input:focus {
+            outline: none;
+            border-color: #00f2fe;
+            box-shadow: 0 0 20px rgba(0, 242, 254, 0.3);
+            transform: translateY(-2px);
+        }
+
+        textarea.input {
+            min-height: 200px;
+            resize: vertical;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 6px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--gradient-1);
+            border-radius: 6px;
+            border: 3px solid rgba(0, 0, 0, 0.3);
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--gradient-2);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 3.5rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-title {
+                font-size: 2.5rem;
+            }
+        }
+
+        /* Loading Animation */
+        .loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease;
+        }
+
+        .loading.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .loader {
+            width: 50px;
+            height: 50px;
+            border: 3px solid var(--glass-bg);
+            border-radius: 50%;
+            border-top-color: #00f2fe;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Кастомный курсор */
+        .cursor {
+            width: 20px;
+            height: 20px;
+            background: var(--gradient-1);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            mix-blend-mode: difference;
+            z-index: 9999;
+            transition: transform 0.2s ease;
+            box-shadow: var(--cursor-glow);
+        }
+
+        .cursor-trail {
+            width: 8px;
+            height: 8px;
+            background: var(--gradient-1);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9998;
+            opacity: 0.5;
+            box-shadow: var(--cursor-glow);
+        }
+
+        /* Параллакс эффект для фона */
+        .parallax-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background: 
+                radial-gradient(circle at 20% 20%, rgba(0, 242, 254, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(79, 172, 254, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(250, 112, 154, 0.1) 0%, transparent 50%);
+            transform-style: preserve-3d;
+            will-change: transform;
+        }
+
+        /* Анимированный текст */
+        .animated-text {
+            background: linear-gradient(
+                90deg,
+                #00f2fe,
+                #4facfe,
+                #fa709a,
+                #fee140,
+                #00f2fe
+            );
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: textGradient 8s linear infinite;
+        }
+
+        @keyframes textGradient {
+            to { background-position: 200% center; }
+        }
+
+        /* Стили для 3D Canvas секции */
+        .canvas-section {
+            padding: 8rem 0;
+            position: relative;
+            overflow: hidden;
+            background: radial-gradient(circle at center, 
+                rgba(0, 0, 0, 0.8) 0%,
+                rgba(0, 0, 0, 0.95) 100%);
+        }
+
+        .canvas-wrapper {
+            position: relative;
+            width: 100%;
+            height: 80vh;
+            margin: 2rem auto;
+            border-radius: 24px;
+            overflow: hidden;
+            transform-style: preserve-3d;
+            perspective: 2000px;
+            box-shadow: 0 0 50px rgba(0, 242, 254, 0.2);
+            cursor: grab;
+        }
+
+        #artCanvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000;
+        }
+
+        .canvas-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: radial-gradient(circle at center, 
+                rgba(0, 242, 254, 0.1) 0%,
+                rgba(79, 172, 254, 0.05) 50%,
+                transparent 100%);
+            pointer-events: none;
+            opacity: 0;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .canvas-wrapper:hover .canvas-overlay {
+            opacity: 1;
+            backdrop-filter: blur(5px);
+        }
+
+        .canvas-info {
+            text-align: center;
+            color: white;
+            text-shadow: var(--text-glow);
+            transform: translateZ(50px);
+            padding: 2rem;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .canvas-controls {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+            justify-content: center;
+        }
+
+        .portal-btn {
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            background: var(--gradient-1);
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.9rem;
+            box-shadow: 0 0 20px rgba(0, 242, 254, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .portal-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 30px rgba(0, 242, 254, 0.5);
+        }
+
+        .portal-btn.active {
+            background: var(--gradient-2);
+            box-shadow: 0 0 40px rgba(250, 112, 154, 0.5);
+        }
+
+        /* Добавляем стили для интерактивных элементов */
+        .canvas-wrapper {
+            cursor: grab;
+        }
+        
+        .canvas-wrapper:active {
+            cursor: grabbing;
+        }
+
+        .touch-indicator {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: radial-gradient(circle at center,
+                rgba(0, 242, 254, 0.2) 0%,
+                rgba(0, 242, 254, 0.1) 50%,
+                transparent 100%);
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 1000;
+        }
+
+        .touch-indicator.active {
+            opacity: 1;
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: translate(-50%, -50%) scale(1); opacity: 0.5; }
+            50% { transform: translate(-50%, -50%) scale(1.2); opacity: 0.3; }
+            100% { transform: translate(-50%, -50%) scale(1); opacity: 0.5; }
+        }
+
+        .portal-btn {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .portal-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: radial-gradient(circle at center, rgba(255, 255, 255, 0.8) 0%, transparent 70%);
+            transform: translate(-50%, -50%);
+            transition: width 0.3s ease, height 0.3s ease;
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .portal-btn:active::before {
+            width: 200px;
+            height: 200px;
+            opacity: 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div class="loading">
+        <div class="loader"></div>
+    </div>
+
+    <!-- Particle Background -->
+    <div id="particles-js"></div>
+
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="container nav-content">
+            <div class="logo">NOVA</div>
+            <div class="nav-links">
+                <a href="#home" class="nav-link">Главная</a>
+                <a href="#features" class="nav-link">Возможности</a>
+                <a href="#contact" class="nav-link">Контакты</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content glass card-3d">
+                <h1 class="hero-title animated-text">Следующее поколение</h1>
+                <p class="hero-subtitle">
+                    Погрузитесь в мир инноваций и технологий будущего. 
+                    Создавайте, творите и развивайтесь вместе с нами.
+                </p>
+                <div style="display: flex; gap: 1.5rem;">
+                    <a href="#contact" class="btn btn-primary">Начать путешествие</a>
+                    <a href="#features" class="btn btn-glass">Исследовать</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="container">
+            <h2 class="section-title">Возможности будущего</h2>
+            <div class="grid">
+                <div class="glass feature-card card-3d" style="animation-delay: 0s;">
+                    <div class="feature-icon">🚀</div>
+                    <h3 style="font-size: 1.8rem; margin-bottom: 1rem;">Квантовый скачок</h3>
+                    <p style="color: rgba(255, 255, 255, 0.8); font-size: 1.1rem;">
+                        Используйте передовые технологии для достижения невозможного
+                    </p>
+                </div>
+                <div class="glass feature-card card-3d" style="animation-delay: 0.2s;">
+                    <div class="feature-icon">💫</div>
+                    <h3 style="font-size: 1.8rem; margin-bottom: 1rem;">Новые измерения</h3>
+                    <p style="color: rgba(255, 255, 255, 0.8); font-size: 1.1rem;">
+                        Исследуйте неизведанные горизонты цифрового мира
+                    </p>
+                </div>
+                <div class="glass feature-card card-3d" style="animation-delay: 0.4s;">
+                    <div class="feature-icon">🌌</div>
+                    <h3 style="font-size: 1.8rem; margin-bottom: 1rem;">Бесконечность</h3>
+                    <p style="color: rgba(255, 255, 255, 0.8); font-size: 1.1rem;">
+                        Раскройте потенциал безграничных возможностей
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="glass card-3d" style="max-width: 700px; margin: 0 auto; padding: 3rem;">
+                <h2 class="section-title" style="font-size: 2.5rem;">Свяжитесь с нами</h2>
+                <form id="contactForm" onsubmit="return handleSubmit(event)">
+                    <div class="form-group">
+                        <input type="text" class="input" placeholder="Ваше имя" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" class="input" placeholder="Email" required>
+                    </div>
+                    <div class="form-group">
+                        <textarea class="input" placeholder="Ваше сообщение" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">Отправить</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Добавляем элементы для параллакса -->
+    <div class="parallax-bg"></div>
+
+    <!-- 3D Canvas Section -->
+    <section id="canvas-3d" class="canvas-section">
+        <div class="container">
+            <h2 class="section-title animated-text">Космический Портал</h2>
+            <div class="canvas-wrapper glass card-3d">
+                <canvas id="artCanvas"></canvas>
+                <div class="canvas-overlay">
+                    <div class="canvas-info">
+                        <h3>Погрузитесь в портал</h3>
+                        <p>Используйте мышь для управления порталом</p>
+                        <div class="canvas-controls">
+                            <button class="portal-btn" data-effect="vortex">Вихрь</button>
+                            <button class="portal-btn" data-effect="galaxy">Галактика</button>
+                            <button class="portal-btn" data-effect="quantum">Квант</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Добавляем индикатор касания -->
+    <div class="touch-indicator"></div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script>
+        // Loading Screen
+        window.addEventListener('load', () => {
+            const loading = document.querySelector('.loading');
+            setTimeout(() => {
+                loading.classList.add('hidden');
+            }, 1000);
+        });
+
+        // Particles.js Configuration
+        particlesJS('particles-js', {
+            particles: {
+                number: { value: 80, density: { enable: true, value_area: 800 } },
+                color: { value: '#00f2fe' },
+                shape: { type: 'circle' },
+                opacity: {
+                    value: 0.5,
+                    random: true,
+                    animation: { enable: true, speed: 1, minimumValue: 0.1, sync: false }
+                },
+                size: {
+                    value: 3,
+                    random: true,
+                    animation: { enable: true, speed: 2, minimumValue: 0.1, sync: false }
+                },
+                line_linked: {
+                    enable: true,
+                    distance: 150,
+                    color: '#00f2fe',
+                    opacity: 0.2,
+                    width: 1
+                },
+                move: {
+                    enable: true,
+                    speed: 2,
+                    direction: 'none',
+                    random: true,
+                    straight: false,
+                    outMode: 'out',
+                    bounce: false,
+                }
+            },
+            interactivity: {
+                detectsOn: 'canvas',
+                events: {
+                    onHover: { enable: true, mode: 'repulse' },
+                    onClick: { enable: true, mode: 'push' },
+                    resize: true
+                },
+                modes: {
+                    repulse: { distance: 100, duration: 0.4 },
+                    push: { particles_nb: 4 }
+                }
+            },
+            retina_detect: true
+        });
+
+        // Navigation scroll effect
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('.nav');
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // 3D Card Effect
+        document.querySelectorAll('.card-3d').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                
+                const rotateX = (y - centerY) / 20;
+                const rotateY = (centerX - x) / 20;
+                
+                const glowX = (x / rect.width) * 100;
+                const glowY = (y / rect.height) * 100;
+                
+                card.style.transform = `
+                    perspective(1000px)
+                    rotateX(${rotateX}deg)
+                    rotateY(${rotateY}deg)
+                    scale3d(1.05, 1.05, 1.05)
+                `;
+                
+                card.style.background = `
+                    radial-gradient(
+                        circle at ${glowX}% ${glowY}%,
+                        rgba(255, 255, 255, 0.1),
+                        rgba(255, 255, 255, 0.05)
+                    )
+                `;
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)';
+                card.style.background = 'var(--glass-bg)';
+            });
+        });
+
+        // Form submission with animation
+        function handleSubmit(event) {
+            event.preventDefault();
+            const form = event.target;
+            const button = form.querySelector('button');
+            const originalText = button.textContent;
+            
+            // Button animation
+            button.innerHTML = '<span class="loader" style="width: 20px; height: 20px;"></span>';
+            button.disabled = true;
+
+            // Simulate form submission
+            setTimeout(() => {
+                const successMessage = document.createElement('div');
+                successMessage.style.cssText = `
+                    position: fixed;
+                    top: 20px;
+                    right: 20px;
+                    padding: 1rem 2rem;
+                    background: var(--gradient-1);
+                    color: white;
+                    border-radius: 8px;
+                    box-shadow: var(--neon-glow);
+                    animation: slideIn 0.5s ease-out;
+                `;
+                successMessage.textContent = 'Сообщение отправлено! Мы свяжемся с вами в ближайшее время.';
+                document.body.appendChild(successMessage);
+
+                // Remove success message after 3 seconds
+                setTimeout(() => {
+                    successMessage.style.animation = 'slideOut 0.5s ease-in forwards';
+                    setTimeout(() => successMessage.remove(), 500);
+                }, 3000);
+
+                form.reset();
+                button.textContent = originalText;
+                button.disabled = false;
+            }, 2000);
+
+            return false;
+        }
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0) rotateX(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Animate elements on scroll
+        document.querySelectorAll('.feature-card, .hero-content, .section-title').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px) rotateX(10deg)';
+            el.style.transition = 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
+            observer.observe(el);
+        });
+
+        // Add keyframes for animations
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideIn {
+                from { transform: translateX(100%); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+            @keyframes slideOut {
+                from { transform: translateX(0); opacity: 1; }
+                to { transform: translateX(100%); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Кастомный курсор
+        const cursor = document.createElement('div');
+        cursor.className = 'cursor';
+        document.body.appendChild(cursor);
+
+        const trails = Array.from({ length: 20 }, () => {
+            const trail = document.createElement('div');
+            trail.className = 'cursor-trail';
+            document.body.appendChild(trail);
+            return trail;
+        });
+
+        let mouseX = 0;
+        let mouseY = 0;
+        let cursorX = 0;
+        let cursorY = 0;
+        let trailX = Array(trails.length).fill(0);
+        let trailY = Array(trails.length).fill(0);
+
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        });
+
+        function animateCursor() {
+            // Плавное движение основного курсора
+            const dx = mouseX - cursorX;
+            const dy = mouseY - cursorY;
+            cursorX += dx * 0.1;
+            cursorY += dy * 0.1;
+            cursor.style.transform = `translate(${cursorX - 10}px, ${cursorY - 10}px)`;
+
+            // Движение следов
+            trails.forEach((trail, index) => {
+                const prevX = index === 0 ? cursorX : trailX[index - 1];
+                const prevY = index === 0 ? cursorY : trailY[index - 1];
+                trailX[index] += (prevX - trailX[index]) * 0.3;
+                trailY[index] += (prevY - trailY[index]) * 0.3;
+                trail.style.transform = `translate(${trailX[index] - 4}px, ${trailY[index] - 4}px)`;
+                trail.style.opacity = 1 - (index / trails.length);
+            });
+
+            requestAnimationFrame(animateCursor);
+        }
+
+        animateCursor();
+
+        // Параллакс эффект
+        const parallaxBg = document.querySelector('.parallax-bg');
+        document.addEventListener('mousemove', (e) => {
+            const { clientX, clientY } = e;
+            const { innerWidth, innerHeight } = window;
+            
+            const moveX = (clientX - innerWidth / 2) / 50;
+            const moveY = (clientY - innerHeight / 2) / 50;
+            
+            parallaxBg.style.transform = `translate3d(${moveX}px, ${moveY}px, 0)`;
+        });
+
+        // Анимация текста при скролле
+        const textElements = document.querySelectorAll('.hero-title, .section-title, .feature-card h3');
+        textElements.forEach(text => {
+            const letters = text.textContent.split('');
+            text.textContent = '';
+            letters.forEach((letter, i) => {
+                const span = document.createElement('span');
+                span.textContent = letter;
+                span.style.animationDelay = `${i * 0.1}s`;
+                span.style.display = 'inline-block';
+                span.style.opacity = '0';
+                span.style.transform = 'translateY(20px)';
+                text.appendChild(span);
+            });
+        });
+
+        // Анимация появления букв
+        const textObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.querySelectorAll('span').forEach(span => {
+                        span.style.transition = 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
+                        span.style.opacity = '1';
+                        span.style.transform = 'translateY(0)';
+                    });
+                }
+            });
+        }, { threshold: 0.5 });
+
+        textElements.forEach(text => textObserver.observe(text));
+
+        // Расширенная 3D сцена
+        const canvas = document.getElementById('artCanvas');
+        const renderer = new THREE.WebGLRenderer({
+            canvas,
+            antialias: true,
+            alpha: true
+        });
+        renderer.setSize(canvas.clientWidth, canvas.clientHeight);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+        // Создаем сцену
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, canvas.clientWidth / canvas.clientHeight, 0.1, 1000);
+        camera.position.z = 15;
+
+        // Создаем портал
+        const portalGeometry = new THREE.RingGeometry(5, 7, 64);
+        const portalMaterial = new THREE.ShaderMaterial({
+            uniforms: {
+                time: { value: 0 },
+                color1: { value: new THREE.Color(0x00f2fe) },
+                color2: { value: new THREE.Color(0x4facfe) }
+            },
+            vertexShader: `
+                varying vec2 vUv;
+                void main() {
+                    vUv = uv;
+                    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+                }
+            `,
+            fragmentShader: `
+                uniform float time;
+                uniform vec3 color1;
+                uniform vec3 color2;
+                varying vec2 vUv;
+                
+                void main() {
+                    float angle = atan(vUv.x - 0.5, vUv.y - 0.5);
+                    float radius = length(vUv - 0.5);
+                    float wave = sin(angle * 8.0 + time * 2.0) * 0.5 + 0.5;
+                    vec3 color = mix(color1, color2, wave);
+                    float alpha = smoothstep(0.5, 0.0, abs(radius - 0.5));
+                    gl_FragColor = vec4(color, alpha);
+                }
+            `,
+            transparent: true,
+            side: THREE.DoubleSide
+        });
+
+        const portal = new THREE.Mesh(portalGeometry, portalMaterial);
+        scene.add(portal);
+
+        // Создаем частицы
+        const particlesGeometry = new THREE.BufferGeometry();
+        const particlesCount = 5000;
+        const posArray = new Float32Array(particlesCount * 3);
+
+        for(let i = 0; i < particlesCount * 3; i++) {
+            posArray[i] = (Math.random() - 0.5) * 20;
+        }
+
+        particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+
+        const particlesMaterial = new THREE.PointsMaterial({
+            size: 0.05,
+            color: 0x00f2fe,
+            transparent: true,
+            opacity: 0.8,
+            blending: THREE.AdditiveBlending
+        });
+
+        const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
+        scene.add(particlesMesh);
+
+        // Добавляем освещение
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+        scene.add(ambientLight);
+
+        const pointLight = new THREE.PointLight(0x00f2fe, 1);
+        pointLight.position.set(5, 5, 5);
+        scene.add(pointLight);
+
+        // Эффекты портала
+        const effects = {
+            vortex: {
+                update: (time) => {
+                    portal.rotation.z = time * 0.5;
+                    particlesMesh.rotation.y = time * 0.2;
+                    particlesMesh.rotation.x = time * 0.1;
+                    portalMaterial.uniforms.time.value = time;
+                }
+            },
+            galaxy: {
+                update: (time) => {
+                    portal.rotation.z = Math.sin(time) * 0.5;
+                    particlesMesh.rotation.y = time * 0.5;
+                    particlesMesh.rotation.x = Math.cos(time) * 0.3;
+                    portalMaterial.uniforms.time.value = time * 2;
+                }
+            },
+            quantum: {
+                update: (time) => {
+                    portal.rotation.z = Math.random() * 0.1;
+                    particlesMesh.rotation.y = time * 0.8;
+                    particlesMesh.rotation.x = Math.random() * 0.2;
+                    portalMaterial.uniforms.time.value = time * 3;
+                }
+            }
+        };
+
+        let currentEffect = 'vortex';
+
+        // Обработчики кнопок
+        document.querySelectorAll('.portal-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.portal-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                currentEffect = btn.dataset.effect;
+            });
+        });
+
+        // Анимация
+        let time = 0;
+        function animate() {
+            requestAnimationFrame(animate);
+            time += 0.01;
+
+            // Применяем текущий эффект
+            effects[currentEffect].update(time);
+
+            // Обновляем позиции частиц
+            const positions = particlesMesh.geometry.attributes.position.array;
+            for(let i = 0; i < positions.length; i += 3) {
+                const x = positions[i];
+                const y = positions[i + 1];
+                const z = positions[i + 2];
+                
+                // Создаем спиральное движение
+                const radius = Math.sqrt(x * x + z * z);
+                const angle = Math.atan2(z, x) + 0.01;
+                
+                positions[i] = radius * Math.cos(angle);
+                positions[i + 2] = radius * Math.sin(angle);
+                positions[i + 1] += Math.sin(time + radius) * 0.01;
+            }
+            particlesMesh.geometry.attributes.position.needsUpdate = true;
+
+            // Обновляем освещение
+            pointLight.position.x = Math.sin(time) * 10;
+            pointLight.position.z = Math.cos(time) * 10;
+
+            renderer.render(scene, camera);
+        }
+
+        // Интерактивность
+        const canvasWrapper = document.querySelector('.canvas-wrapper');
+        let canvasMouseX = 0;
+        let canvasMouseY = 0;
+
+        canvasWrapper.addEventListener('mousemove', (event) => {
+            const rect = canvasWrapper.getBoundingClientRect();
+            canvasMouseX = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+            canvasMouseY = -((event.clientY - rect.top) / rect.height) * 2 + 1;
+
+            // Вращаем портал
+            portal.rotation.x = canvasMouseY * 0.5;
+            portal.rotation.y = canvasMouseX * 0.5;
+
+            // Меняем цвет портала
+            const hue = (canvasMouseX + canvasMouseY) * 0.5;
+            portalMaterial.uniforms.color1.value.setHSL(hue, 1, 0.5);
+            portalMaterial.uniforms.color2.value.setHSL(hue + 0.2, 1, 0.5);
+        });
+
+        // Обработка изменения размера окна
+        window.addEventListener('resize', () => {
+            camera.aspect = canvas.clientWidth / canvas.clientHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(canvas.clientWidth, canvas.clientHeight);
+        });
+
+        // Запускаем анимацию
+        animate();
+
+        // Добавляем секцию в навигацию
+        const navLinks = document.querySelector('.nav-links');
+        const canvasLink = document.createElement('a');
+        canvasLink.href = '#canvas-3d';
+        canvasLink.className = 'nav-link';
+        canvasLink.textContent = '3D Арт';
+        navLinks.appendChild(canvasLink);
+
+        // Добавляем интерактивные эффекты
+        const touchIndicator = document.querySelector('.touch-indicator');
+        let isDragging = false;
+        let dragStartX = 0;
+        let dragStartY = 0;
+        let portalRotationX = 0;
+        let portalRotationY = 0;
+
+        // Функция для создания эффекта притяжения частиц
+        function createParticleAttraction(x, y, strength = 0.1) {
+            const positions = particlesMesh.geometry.attributes.position.array;
+            const mouseVector = new THREE.Vector3(
+                (x / canvas.clientWidth) * 2 - 1,
+                -(y / canvas.clientHeight) * 2 + 1,
+                0
+            );
+            mouseVector.unproject(camera);
+
+            for(let i = 0; i < positions.length; i += 3) {
+                const particleVector = new THREE.Vector3(
+                    positions[i],
+                    positions[i + 1],
+                    positions[i + 2]
+                );
+
+                const distance = particleVector.distanceTo(mouseVector);
+                if(distance < 5) {
+                    const force = (1 - distance / 5) * strength;
+                    const direction = new THREE.Vector3()
+                        .subVectors(mouseVector, particleVector)
+                        .normalize()
+                        .multiplyScalar(force);
+
+                    positions[i] += direction.x;
+                    positions[i + 1] += direction.y;
+                    positions[i + 2] += direction.z;
+                }
+            }
+            particlesMesh.geometry.attributes.position.needsUpdate = true;
+        }
+
+        // Обработчики событий мыши
+        canvasWrapper.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            dragStartX = e.clientX;
+            dragStartY = e.clientY;
+            touchIndicator.style.left = e.clientX + 'px';
+            touchIndicator.style.top = e.clientY + 'px';
+            touchIndicator.classList.add('active');
+        });
+
+        canvasWrapper.addEventListener('mousemove', (e) => {
+            if(isDragging) {
+                const deltaX = e.clientX - dragStartX;
+                const deltaY = e.clientY - dragStartY;
+                
+                portalRotationX += deltaY * 0.01;
+                portalRotationY += deltaX * 0.01;
+                
+                portal.rotation.x = portalRotationX;
+                portal.rotation.y = portalRotationY;
+                
+                dragStartX = e.clientX;
+                dragStartY = e.clientY;
+
+                // Обновляем позицию индикатора
+                touchIndicator.style.left = e.clientX + 'px';
+                touchIndicator.style.top = e.clientY + 'px';
+
+                // Создаем эффект притяжения частиц
+                createParticleAttraction(e.clientX, e.clientY, 0.2);
+            } else {
+                // Создаем слабый эффект притяжения при наведении
+                createParticleAttraction(e.clientX, e.clientY, 0.05);
+            }
+        });
+
+        canvasWrapper.addEventListener('mouseup', () => {
+            isDragging = false;
+            touchIndicator.classList.remove('active');
+        });
+
+        canvasWrapper.addEventListener('mouseleave', () => {
+            isDragging = false;
+            touchIndicator.classList.remove('active');
+        });
+
+        // Добавляем эффект магнитного притяжения для кнопок
+        document.querySelectorAll('.portal-btn').forEach(btn => {
+            btn.addEventListener('mousemove', (e) => {
+                const rect = btn.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                
+                const deltaX = (x - centerX) / centerX;
+                const deltaY = (y - centerY) / centerY;
+                
+                btn.style.transform = `translate(${deltaX * 10}px, ${deltaY * 10}px)`;
+            });
+            
+            btn.addEventListener('mouseleave', () => {
+                btn.style.transform = 'translate(0, 0)';
+            });
+        });
+
+        // Добавляем эффект пульсации портала при клике
+        canvasWrapper.addEventListener('click', (e) => {
+            const rect = canvasWrapper.getBoundingClientRect();
+            const x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+            const y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
+            
+            // Создаем волну в портале
+            portalMaterial.uniforms.time.value += 0.5;
+            
+            // Добавляем вспышку частиц
+            for(let i = 0; i < particlesCount; i++) {
+                const angle = Math.random() * Math.PI * 2;
+                const radius = Math.random() * 2;
+                const index = i * 3;
+                
+                positions[index] += Math.cos(angle) * radius;
+                positions[index + 1] += Math.sin(angle) * radius;
+                positions[index + 2] += (Math.random() - 0.5) * radius;
+            }
+            particlesMesh.geometry.attributes.position.needsUpdate = true;
+        });
+    </script>
+</body>
+</html>
